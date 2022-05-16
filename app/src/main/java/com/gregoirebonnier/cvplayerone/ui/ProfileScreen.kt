@@ -104,7 +104,8 @@ class ProfileScreen() {
             elevation = 8.dp,
             shape = Shapes.medium.copy(CornerSize(8.dp))
         ) {
-            Row(
+
+        Row(
                 modifier = Modifier.padding(15.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
