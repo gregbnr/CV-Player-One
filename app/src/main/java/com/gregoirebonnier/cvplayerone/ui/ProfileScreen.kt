@@ -38,12 +38,7 @@ class ProfileScreen() {
 
         val firstMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_smalltown_boy)
         val secondMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_my_life_be_like)
-        firstMediaPlayer.setOnPreparedListener {
-            println("READY TO GO")
-        }
-        secondMediaPlayer.setOnPreparedListener {
-            println("READY TO GO")
-        }
+
 
         CollapsingToolbarScaffold(
             modifier = Modifier
@@ -63,7 +58,7 @@ class ProfileScreen() {
                     verticalArrangement = Arrangement.Center
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.ic_baseline_person_24),
+                        painter = painterResource(R.drawable.profile_picture),
                         contentDescription = "avatar",
                         contentScale = ContentScale.Crop,            // crop the image if it's not a square
                         modifier = Modifier
@@ -105,7 +100,7 @@ class ProfileScreen() {
             shape = Shapes.medium.copy(CornerSize(8.dp))
         ) {
 
-        Row(
+            Row(
                 modifier = Modifier.padding(15.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
