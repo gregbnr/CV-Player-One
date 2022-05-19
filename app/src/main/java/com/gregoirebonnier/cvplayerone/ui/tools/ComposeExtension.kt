@@ -12,3 +12,6 @@ inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit): Modifier
         onClick()
     }
 }
+
+inline fun Modifier.modifyIf(condition: Boolean, modify: Modifier.() -> Modifier) =
+    if (condition) modify() else this

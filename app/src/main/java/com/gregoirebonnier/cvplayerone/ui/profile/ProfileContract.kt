@@ -9,12 +9,13 @@ class ProfileContract {
 
     sealed class Effect : UiEffect {
         object OnUserSendEmail : Effect()
+        object OnUserOpenLinkedIn : Effect()
     }
 
     sealed class Event : UiEvent {
         object OnUserUpdateDarkMode : Event()
         object OnUserClickOnEmail : Event()
-
+        object OnUserClickOnLinkedIn : Event()
     }
 
     data class State(

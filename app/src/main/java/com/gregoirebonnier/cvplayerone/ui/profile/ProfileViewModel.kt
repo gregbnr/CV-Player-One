@@ -25,9 +25,8 @@ class ProfileViewModel(
     override fun handleEvent(event: ProfileContract.Event) {
         when (event) {
             ProfileContract.Event.OnUserUpdateDarkMode -> updateDarkMode(!currentState.isDarkMode)
-            ProfileContract.Event.OnUserClickOnEmail -> setEffect {
-                ProfileContract.Effect.OnUserSendEmail
-            }
+            ProfileContract.Event.OnUserClickOnEmail -> setEffect { ProfileContract.Effect.OnUserSendEmail }
+            ProfileContract.Event.OnUserClickOnLinkedIn -> setEffect { ProfileContract.Effect.OnUserOpenLinkedIn }
         }
     }
 

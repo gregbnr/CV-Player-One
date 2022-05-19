@@ -3,4 +3,11 @@
     <string name="navigationItem_title_profile">Profile</string>
     <string name="navigationItem_title_experiences">Xp</string>
     <string name="navigationItem_title_skills">Skills</string>
+    <string name="profileScreen_informationItem_title_developer">Android Developer</string>
+    <string name="profileScreen_informationItem_title_linkedin">My LinkedIn</string>
+    <string name="profileScreen_informationItem_title_age">%1$d years</string>
+    <string name="profileScreen_description">\"I have been an Android developer for 2 years. I am passionate about mobile technology and want to become an expert.\n
+        Scroll up to contact me\"</string>
+    <string name="profileScreen_intent_mail_subject">I saw your CV !</string>
+    <string name="profileScreen_intent_mail_body">Dear Grégoire,</string>
 </resources>

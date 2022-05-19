@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -102,7 +103,8 @@ class MainActivity : ComponentActivity() {
         )
         BottomNavigation(
             backgroundColor = MaterialTheme.colors.surface,
-            contentColor = MaterialTheme.colors.primary
+            contentColor = MaterialTheme.colors.primary,
+            elevation = 12.dp
         ) {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route

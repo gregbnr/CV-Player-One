@@ -2,6 +2,9 @@ package com.gregoirebonnier.cvplayerone.ui.profile
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
+import android.media.MediaPlayer
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -10,13 +13,15 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -25,7 +30,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,12 +41,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewModelScope
 import com.gregoirebonnier.cvplayerone.MainActivity
 import com.gregoirebonnier.cvplayerone.R
+import com.gregoirebonnier.cvplayerone.ui.tools.getDiffYears
+import com.gregoirebonnier.cvplayerone.ui.tools.modifyIf
 import com.gregoirebonnier.cvplayerone.ui.tools.noRippleClickable
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
+import java.util.*
 
 
 class ProfileScreen(
@@ -76,6 +86,7 @@ class ProfileScreen(
         viewModel.effect.collect { effect ->
             when (effect) {
                 ProfileContract.Effect.OnUserSendEmail -> sendEmail()
+                ProfileContract.Effect.OnUserOpenLinkedIn -> openLinkedIn()
             }
         }
     }
@@ -94,8 +105,30 @@ class ProfileScreen(
     private fun sendEmail() {
         try {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "gmfbonnier@gmail.com"))
-            intent.putExtra(Intent.EXTRA_SUBJECT, "I saw your CV !")
-            intent.putExtra(Intent.EXTRA_TEXT, "Dear Grégoire,")
+            intent.putExtra(Intent.EXTRA_SUBJECT,
+                activity.getString(R.string.profileScreen_intent_mail_subject))
+            intent.putExtra(Intent.EXTRA_TEXT,
+                activity.getString(R.string.profileScreen_intent_mail_body))
+            activity.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(activity.applicationContext, e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     *
+     */
+    private fun openLinkedIn() {
+        try {
+            val linkedId = "gregoire-bonnier"
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://add/%@$linkedId"))
+            val packageManager = activity.applicationContext.packageManager
+            val list: List<ResolveInfo> =
+                packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+            if (list.isEmpty()) {
+                intent = Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.linkedin.com/profile/view?id=$linkedId"))
+            }
             activity.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(activity.applicationContext, e.message, Toast.LENGTH_SHORT).show()
@@ -105,9 +138,15 @@ class ProfileScreen(
 
     @Composable
     fun MainScreen() {
+        /**
+         * observe view model
+         */
         initObservers()
 
         val state = rememberCollapsingToolbarScaffoldState()
+
+        val firstMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_smalltown_boy)
+        val secondMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_my_life_be_like)
 
         CollapsingToolbarScaffold(
             modifier = Modifier
@@ -165,7 +204,7 @@ class ProfileScreen(
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp))
                     .background(MaterialTheme.colors.surface)
-                    .padding(24.dp)
+                    .padding(top = 24.dp)
             ) {
                 LazyColumn(
                     modifier = Modifier
@@ -173,11 +212,15 @@ class ProfileScreen(
                 ) {
                     item {
                         Text(
-                            modifier = Modifier.padding(vertical = 16.dp),
+                            modifier = Modifier.padding(
+                                top = 16.dp,
+                                bottom = 36.dp,
+                                start = 24.dp,
+                                end = 24.dp),
                             color = MaterialTheme.colors.onSurface,
                             fontStyle = FontStyle.Italic,
                             textAlign = TextAlign.Center,
-                            text = "\"I have been an Android developer for 2 years. I am passionate about mobile technology and want to become an expert. Do not hesitate to contact me\""
+                            text = stringResource(id = R.string.profileScreen_description)
                         )
                     }
                     item {
@@ -189,13 +232,18 @@ class ProfileScreen(
                                 "Room",
                                 "Retrofit",
                                 "Koin",
-                                "Agile")
-                            items(skills) { skill ->
+                                "Agile",
+                                "Git",
+                            )
+                            itemsIndexed(skills) { index, skill ->
                                 Card(
                                     modifier = Modifier
-                                        .fillMaxWidth()
+                                        .widthIn(min = 100.dp)
                                         .wrapContentHeight(Alignment.CenterVertically)
-                                        .padding(6.dp),
+                                        .padding(
+                                            start = if (index == 0) 24.dp else 0.dp,
+                                            end = if (index == skills.lastIndex) 24.dp else 12.dp,
+                                        ),
                                     backgroundColor = MaterialTheme.colors.surface,
                                     elevation = 8.dp,
                                     shape = RoundedCornerShape(8.dp)
@@ -213,32 +261,47 @@ class ProfileScreen(
                         }
                     }
                     item {
-                        Row(
-                            modifier = Modifier
-                                .wrapContentWidth()
-                                .padding(vertical = 16.dp)
-                                .noRippleClickable { viewModel.setEvent(ProfileContract.Event.OnUserClickOnEmail) },
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center,
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.ic_baseline_alternate_email_24),
-                                contentDescription = "email",
-                                colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
-                                modifier = Modifier.size(24.dp)
+                        Column(modifier = Modifier.padding(vertical = 36.dp)) {
+                            InformationItem(
+                                text = stringResource(R.string.profileScreen_informationItem_title_developer),
+                                icon = R.drawable.ic_baseline_android_24,
+                                action = {},
                             )
-                            Text(
+                            InformationItem(
+                                text = "Paris",
+                                icon = R.drawable.ic_baseline_place_24,
+                                action = {},
+                            )
+                            InformationItem(
+                                text = stringResource(
+                                    id = R.string.profileScreen_informationItem_title_age,
+                                    getDiffYears(Date(902440800000), Date())
+                                ),
+                                icon = R.drawable.ic_baseline_calendar_today_24,
+                                action = {},
+                            )
+                            InformationItem(
                                 text = "gmfbonnier@gmail.com",
-                                textAlign = TextAlign.Center,
-                                fontSize = 20.sp,
-                                modifier = Modifier
-                                    .padding(horizontal = 16.dp)
-                                    .fillMaxWidth(),
-                                maxLines = 1,
-                                color = MaterialTheme.colors.onSurface
+                                icon = R.drawable.ic_baseline_alternate_email_24,
+                                action = { viewModel.setEvent(ProfileContract.Event.OnUserClickOnEmail) },
+                                hasLink = true
                             )
-                        }
+                            InformationItem(
+                                text = stringResource(R.string.profileScreen_informationItem_title_linkedin),
+                                icon = R.drawable.ic_linkedin_fill_24,
+                                action = { viewModel.setEvent(ProfileContract.Event.OnUserClickOnLinkedIn) },
+                                hasLink = true,
+                                isLastItem = true
+                            )
 
+                        }
+                    }
+                    item {
+                        Column(modifier = Modifier.padding(horizontal = 24.dp)) {
+                            CardMusicPlayer("Smalltown Boy - Bronsky Beat", firstMediaPlayer)
+                            CardMusicPlayer("My Life Be Like - Grits", secondMediaPlayer)
+
+                        }
                     }
 
                 }
@@ -246,9 +309,57 @@ class ProfileScreen(
                 Box(
                     Modifier
                         .fillMaxWidth()
-                        .height(30.dp)
+                        .height(24.dp)
                         .background(Brush.verticalGradient(colors))
                         .align(Alignment.TopCenter)
+                )
+            }
+
+        }
+    }
+
+    @Composable
+    private fun InformationItem(
+        text: String,
+        icon: Int,
+        action: () -> Unit,
+        hasLink: Boolean = false,
+        isLastItem: Boolean = false,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 24.dp, end = 24.dp, bottom = if (isLastItem) 0.dp else 24.dp)
+                .noRippleClickable {
+                    action.invoke()
+                },
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = if (hasLink) Arrangement.SpaceBetween else Arrangement.Center,
+        ) {
+            Image(
+                painter = painterResource(icon),
+                contentDescription = "email",
+                colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
+                modifier = Modifier.size(24.dp)
+            )
+            Text(
+                text = text,
+                textAlign = TextAlign.Center,
+                fontSize = 16.sp,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .modifyIf(!hasLink) {
+                        fillMaxWidth()
+                    },
+                maxLines = 1,
+                color = MaterialTheme.colors.onSurface
+            )
+            if (hasLink) {
+                Image(
+                    painter = painterResource(R.drawable.ic_external_link_24),
+                    contentDescription = "link",
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
+                    modifier = Modifier.size(16.dp)
                 )
             }
 
@@ -373,59 +484,52 @@ class ProfileScreen(
     /**
      * Music to display in info
      *
-
-    val firstMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_smalltown_boy)
-    val secondMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_my_life_be_like)
+     */
 
 
-    CardMusicPlayer("Smalltown Boy - Bronsky Beat", firstMediaPlayer)
-    CardMusicPlayer("My Life Be Like - Grits", secondMediaPlayer)
 
     @Composable
     private fun CardMusicPlayer(titleMusic: String, mediaPlayer: MediaPlayer) {
-    val isPlaying = remember { mutableStateOf(false) }
-    Card(
-    modifier = Modifier
-    .padding(vertical = 15.dp)
-    .fillMaxWidth(),
-    elevation = 8.dp,
-    backgroundColor = MaterialTheme.colors.surface,
-    shape = RoundedCornerShape(8.dp)
-    ) {
-    Row(
-    modifier = Modifier.padding(15.dp),
-    verticalAlignment = Alignment.CenterVertically
-    ) {
-    Image(
-    painter = painterResource(
-    if (isPlaying.value) R.drawable.ic_baseline_pause_circle_outline_24
-    else R.drawable.ic_baseline_play_circle_outline_24
-    ),
-    contentDescription = "play",
-    colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
-    modifier = Modifier
-    .size(30.dp)
-    .noRippleClickable {
-    if (isPlaying.value) {
-    mediaPlayer.pause()
-    isPlaying.value = false
-    } else {
-    mediaPlayer.start()
-    isPlaying.value = true
-    }
-    }
-    )
-    Text(text = titleMusic,
-    modifier = Modifier.padding(horizontal = 16.dp),
-    maxLines = 1,
-    color = MaterialTheme.colors.onSurface)
+        val isPlaying = remember { mutableStateOf(false) }
+        Card(
+            modifier = Modifier
+                .padding(vertical = 15.dp)
+                .fillMaxWidth(),
+            elevation = 8.dp,
+            backgroundColor = MaterialTheme.colors.surface,
+            shape = RoundedCornerShape(8.dp)
+        ) {
+            Row(
+                modifier = Modifier.padding(15.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(
+                        if (isPlaying.value) R.drawable.ic_baseline_pause_circle_outline_24
+                        else R.drawable.ic_baseline_play_circle_outline_24
+                    ),
+                    contentDescription = "play",
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .noRippleClickable {
+                            if (isPlaying.value) {
+                                mediaPlayer.pause()
+                                isPlaying.value = false
+                            } else {
+                                mediaPlayer.start()
+                                isPlaying.value = true
+                            }
+                        }
+                )
+                Text(text = titleMusic,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    maxLines = 1,
+                    color = MaterialTheme.colors.onSurface)
+            }
+
+        }
     }
 
-    }
-    }
-
-
-     *
-     */
 
 }
