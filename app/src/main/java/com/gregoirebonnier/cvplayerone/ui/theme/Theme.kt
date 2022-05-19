@@ -13,8 +13,8 @@ private val LightColorPalette = lightColors(
     //secondary = Teal200,
     background = Grey200,
     surface = Color.White,
-    onPrimary = Color.Black,
-    onSecondary = Color.Black,
+    onPrimary = Color.White,
+    //onSecondary = Color.Black,
     onBackground = Color.Black,
     onSurface = Color.Black,
 )
@@ -23,17 +23,17 @@ private val DarkColorPalette = darkColors(
     primary = Orange200,
     primaryVariant = Orange500,
     //secondary = Teal200,
-    background = Color.Black,
+    background = Grey900,
     surface = Color.Black,
     onPrimary = Color.Black,
-    onSecondary = Color.Black,
+    //onSecondary = Color.Black,
     onBackground = Color.White,
     onSurface = Color.White,
 )
 
 @Composable
-fun CVPlayerOneTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
+fun CVPlayerOneTheme(isDarkMode: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+    val colors = if (isDarkMode) {
         DarkColorPalette
     } else {
         LightColorPalette

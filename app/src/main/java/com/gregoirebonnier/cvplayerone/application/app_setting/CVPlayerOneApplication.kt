@@ -1,6 +1,9 @@
-package com.gregoirebonnier.cvplayerone.application
+package com.gregoirebonnier.cvplayerone.application.app_setting
 
 import android.app.Application
+import com.gregoirebonnier.cvplayerone.application.module.domainModule
+import com.gregoirebonnier.cvplayerone.application.module.localDataSourceModule
+import com.gregoirebonnier.cvplayerone.application.module.repositoryModule
 import com.gregoirebonnier.cvplayerone.application.module.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
@@ -21,7 +24,10 @@ class CVPlayerOneApplication : Application() {
             androidFileProperties()
             // use modules
             modules(
-                viewModelModule()
+                viewModelModule(),
+                localDataSourceModule(),
+                repositoryModule(),
+                domainModule(),
             )
         }
 

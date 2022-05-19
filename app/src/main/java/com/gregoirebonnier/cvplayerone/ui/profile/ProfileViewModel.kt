@@ -1,4 +1,4 @@
-package com.gregoirebonnier.cvplayerone
+package com.gregoirebonnier.cvplayerone.ui.profile
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
@@ -10,28 +10,30 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(
+class ProfileViewModel(
     application: Application,
     private val updateDarkModeUseCase: UpdateDarkModeUseCase,
     private val observeIsDarkModeActivatedUseCase: ObserveIsDarkModeActivatedUseCase,
-) : BaseViewModel<MainContract.Event, MainContract.State, MainContract.Effect>(application) {
+) : BaseViewModel<ProfileContract.Event, ProfileContract.State, ProfileContract.Effect>(application) {
 
-    override fun createInitialState(): MainContract.State {
-        return MainContract.State(
+    override fun createInitialState(): ProfileContract.State {
+        return ProfileContract.State(
             isDarkMode = false
         )
     }
 
-    override fun handleEvent(event: MainContract.Event) {
+    override fun handleEvent(event: ProfileContract.Event) {
         when (event) {
-            is MainContract.Event.OnUserUpdateDarkMode -> updateDarkMode(event.isDarkModeActivated)
+            ProfileContract.Event.OnUserUpdateDarkMode -> updateDarkMode(!currentState.isDarkMode)
+            ProfileContract.Event.OnUserClickOnEmail -> setEffect {
+                ProfileContract.Effect.OnUserSendEmail
+            }
         }
     }
 
     init {
         observeIsDarkMode()
     }
-
 
     /**
      * Get info if the dark mode is active or not
@@ -43,6 +45,7 @@ class MainViewModel(
             }
         }
     }
+
 
     /**
      * Get info if the dark mode is active or not
