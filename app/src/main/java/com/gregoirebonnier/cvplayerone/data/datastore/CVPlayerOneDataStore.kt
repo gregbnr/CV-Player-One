@@ -1,4 +1,4 @@
-package com.gregoirebonnier.cvplayerone.application.data.datastore
+package com.gregoirebonnier.cvplayerone.data.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences

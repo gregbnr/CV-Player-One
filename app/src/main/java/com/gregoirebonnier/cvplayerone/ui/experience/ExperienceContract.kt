@@ -1,18 +1,17 @@
-package com.gregoirebonnier.cvplayerone
+package com.gregoirebonnier.cvplayerone.ui.experience
 
 import com.gregoirebonnier.cvplayerone.application.base.UiEffect
 import com.gregoirebonnier.cvplayerone.application.base.UiEvent
 import com.gregoirebonnier.cvplayerone.application.base.UiState
 
 
-class MainContract {
+class ExperienceContract {
 
     sealed class Effect : UiEffect {
-        data class UpdateDarkMode(val isDarkModeActivated: Boolean) : Effect()
+
     }
 
     sealed class Event : UiEvent {
-        data class OnUserUpdateDarkMode(val isDarkModeActivated: Boolean) : Event()
 
     }
 

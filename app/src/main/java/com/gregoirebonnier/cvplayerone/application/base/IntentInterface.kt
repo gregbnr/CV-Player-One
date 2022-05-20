@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gregoirebonnier.cvplayerone.application.app_setting.base
+package com.gregoirebonnier.cvplayerone.application.base
 
 /**
  * the current state of views

@@ -39,12 +39,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.gregoirebonnier.cvplayerone.MainActivity
 import com.gregoirebonnier.cvplayerone.R
+import com.gregoirebonnier.cvplayerone.ui.NavigationItem
 import com.gregoirebonnier.cvplayerone.ui.tools.getDiffYears
 import com.gregoirebonnier.cvplayerone.ui.tools.modifyIf
 import com.gregoirebonnier.cvplayerone.ui.tools.noRippleClickable
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
@@ -55,6 +56,7 @@ import java.util.*
 class ProfileScreen(
     private val activity: MainActivity,
     private val viewModel: ProfileViewModel,
+    private val navController: NavController,
 ) {
 
     /**
@@ -234,11 +236,13 @@ class ProfileScreen(
                                 "Koin",
                                 "Agile",
                                 "Git",
+                                ""
                             )
                             itemsIndexed(skills) { index, skill ->
                                 Card(
                                     modifier = Modifier
                                         .widthIn(min = 100.dp)
+                                        .heightIn(min = 50.dp, max = 50.dp)
                                         .wrapContentHeight(Alignment.CenterVertically)
                                         .padding(
                                             start = if (index == 0) 24.dp else 0.dp,
@@ -248,14 +252,27 @@ class ProfileScreen(
                                     elevation = 8.dp,
                                     shape = RoundedCornerShape(8.dp)
                                 ) {
-                                    Text(
-                                        text = skill,
-                                        color = MaterialTheme.colors.onSurface,
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(16.dp),
-                                        textAlign = TextAlign.Center
-                                    )
+                                    if (index == skills.lastIndex) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.ic_three_dots_24),
+                                            contentDescription = "last item",
+                                            colorFilter = ColorFilter.tint(Color.LightGray),
+                                            modifier = Modifier
+                                                .padding(16.dp)
+                                                .noRippleClickable {
+                                                    navController.navigate(NavigationItem.Skills.route)
+                                                },
+                                        )
+                                    } else {
+                                        Text(
+                                            text = skill,
+                                            color = MaterialTheme.colors.onSurface,
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(16.dp),
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -485,7 +502,6 @@ class ProfileScreen(
      * Music to display in info
      *
      */
-
 
 
     @Composable

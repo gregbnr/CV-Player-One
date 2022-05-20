@@ -1,4 +1,4 @@
-package com.gregoirebonnier.cvplayerone.application.app_setting
+package com.gregoirebonnier.cvplayerone.application
 
 import android.app.Application
 import com.gregoirebonnier.cvplayerone.application.module.domainModule

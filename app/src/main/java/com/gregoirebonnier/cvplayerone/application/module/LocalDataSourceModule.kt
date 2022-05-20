@@ -1,8 +1,8 @@
 package com.gregoirebonnier.cvplayerone.application.module
 
-import com.gregoirebonnier.cvplayerone.application.data.datastore.CVPlayerOneDataStore
-import com.gregoirebonnier.cvplayerone.application.data.local_data_source.AppLocalDataSource
-import com.gregoirebonnier.cvplayerone.application.data.local_data_source.AppLocalDataSourceImpl
+import com.gregoirebonnier.cvplayerone.data.datastore.CVPlayerOneDataStore
+import com.gregoirebonnier.cvplayerone.data.local_data_source.AppLocalDataSource
+import com.gregoirebonnier.cvplayerone.data.local_data_source.AppLocalDataSourceImpl
 import org.koin.dsl.module
 
 fun localDataSourceModule() = module {

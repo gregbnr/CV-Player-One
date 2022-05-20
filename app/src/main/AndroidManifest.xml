@@ -3,7 +3,7 @@
     package="com.gregoirebonnier.cvplayerone">
 
     <application
-        android:name=".application.app_setting.CVPlayerOneApplication"
+        android:name=".application.CVPlayerOneApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

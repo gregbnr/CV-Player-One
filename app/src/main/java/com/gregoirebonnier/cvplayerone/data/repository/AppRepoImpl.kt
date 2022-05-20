@@ -1,6 +1,6 @@
-package com.gregoirebonnier.cvplayerone.application.data.repository
+package com.gregoirebonnier.cvplayerone.data.repository
 
-import com.gregoirebonnier.cvplayerone.application.data.local_data_source.AppLocalDataSource
+import com.gregoirebonnier.cvplayerone.data.local_data_source.AppLocalDataSource
 import kotlinx.coroutines.flow.Flow
 
 class AppRepoImpl(

@@ -1,6 +1,6 @@
-package com.gregoirebonnier.cvplayerone.application.domain.app
+package com.gregoirebonnier.cvplayerone.domain.app
 
-import com.gregoirebonnier.cvplayerone.application.data.repository.AppRepo
+import com.gregoirebonnier.cvplayerone.data.repository.AppRepo
 import kotlinx.coroutines.flow.Flow
 
 class ObserveIsDarkModeActivatedUseCase(

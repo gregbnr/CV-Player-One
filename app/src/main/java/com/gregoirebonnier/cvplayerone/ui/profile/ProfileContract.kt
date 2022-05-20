@@ -1,8 +1,8 @@
 package com.gregoirebonnier.cvplayerone.ui.profile
 
-import com.gregoirebonnier.cvplayerone.application.app_setting.base.UiEffect
-import com.gregoirebonnier.cvplayerone.application.app_setting.base.UiEvent
-import com.gregoirebonnier.cvplayerone.application.app_setting.base.UiState
+import com.gregoirebonnier.cvplayerone.application.base.UiEffect
+import com.gregoirebonnier.cvplayerone.application.base.UiEvent
+import com.gregoirebonnier.cvplayerone.application.base.UiState
 
 
 class ProfileContract {

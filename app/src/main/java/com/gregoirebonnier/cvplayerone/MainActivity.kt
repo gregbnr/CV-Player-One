@@ -21,13 +21,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.gregoirebonnier.cvplayerone.ui.ExperienceScreen
 import com.gregoirebonnier.cvplayerone.ui.NavigationItem
 import com.gregoirebonnier.cvplayerone.ui.SkillScreen
+import com.gregoirebonnier.cvplayerone.ui.experience.ExperienceScreen
 import com.gregoirebonnier.cvplayerone.ui.profile.ProfileScreen
 import com.gregoirebonnier.cvplayerone.ui.profile.ProfileViewModel
 import com.gregoirebonnier.cvplayerone.ui.theme.CVPlayerOneTheme
-import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
@@ -131,7 +130,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             launchSingleTop = true
-                            restoreState = true
                         }
                     }
                 )
@@ -143,7 +141,7 @@ class MainActivity : ComponentActivity() {
     private fun NavigationGraph(navController: NavHostController) {
         NavHost(navController, startDestination = NavigationItem.Profile.route) {
             composable(NavigationItem.Profile.route) {
-                ProfileScreen(this@MainActivity, profileViewModel).MainScreen()
+                ProfileScreen(this@MainActivity, profileViewModel, navController).MainScreen()
             }
             composable(NavigationItem.Experiences.route) {
                 ExperienceScreen().MainScreen()

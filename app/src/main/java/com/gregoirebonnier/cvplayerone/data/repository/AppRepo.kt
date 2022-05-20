@@ -1,8 +1,8 @@
-package com.gregoirebonnier.cvplayerone.application.data.local_data_source
+package com.gregoirebonnier.cvplayerone.data.repository
 
 import kotlinx.coroutines.flow.Flow
 
-interface AppLocalDataSource {
+interface AppRepo {
 
     fun observeIsDarkModeActivated(): Flow<Boolean>
 

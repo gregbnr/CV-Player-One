@@ -1,7 +1,7 @@
 package com.gregoirebonnier.cvplayerone.application.module
 
-import com.gregoirebonnier.cvplayerone.application.domain.app.ObserveIsDarkModeActivatedUseCase
-import com.gregoirebonnier.cvplayerone.application.domain.app.UpdateDarkModeUseCase
+import com.gregoirebonnier.cvplayerone.domain.app.ObserveIsDarkModeActivatedUseCase
+import com.gregoirebonnier.cvplayerone.domain.app.UpdateDarkModeUseCase
 import org.koin.dsl.module
 
 fun domainModule() = module {

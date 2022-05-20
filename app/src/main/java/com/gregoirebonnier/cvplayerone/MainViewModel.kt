@@ -2,11 +2,10 @@ package com.gregoirebonnier.cvplayerone
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.gregoirebonnier.cvplayerone.application.app_setting.base.BaseViewModel
-import com.gregoirebonnier.cvplayerone.application.domain.app.ObserveIsDarkModeActivatedUseCase
-import com.gregoirebonnier.cvplayerone.application.domain.app.UpdateDarkModeUseCase
+import com.gregoirebonnier.cvplayerone.application.base.BaseViewModel
+import com.gregoirebonnier.cvplayerone.domain.app.ObserveIsDarkModeActivatedUseCase
+import com.gregoirebonnier.cvplayerone.domain.app.UpdateDarkModeUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 

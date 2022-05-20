@@ -1,7 +1,7 @@
-package com.gregoirebonnier.cvplayerone.application.data.local_data_source
+package com.gregoirebonnier.cvplayerone.data.local_data_source
 
-import com.gregoirebonnier.cvplayerone.application.data.datastore.CVPlayerOneDataStore
-import com.gregoirebonnier.cvplayerone.application.data.datastore.PreferenceKeys
+import com.gregoirebonnier.cvplayerone.data.datastore.CVPlayerOneDataStore
+import com.gregoirebonnier.cvplayerone.data.datastore.PreferenceKeys
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

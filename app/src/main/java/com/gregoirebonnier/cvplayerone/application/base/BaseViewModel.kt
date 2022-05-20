@@ -1,4 +1,4 @@
-package com.gregoirebonnier.cvplayerone.application.app_setting.base
+package com.gregoirebonnier.cvplayerone.application.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
