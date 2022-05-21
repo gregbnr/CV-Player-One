@@ -34,7 +34,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,6 +42,7 @@ import androidx.navigation.NavController
 import com.gregoirebonnier.cvplayerone.MainActivity
 import com.gregoirebonnier.cvplayerone.R
 import com.gregoirebonnier.cvplayerone.ui.NavigationItem
+import com.gregoirebonnier.cvplayerone.ui.tools.ChipSkill
 import com.gregoirebonnier.cvplayerone.ui.tools.getDiffYears
 import com.gregoirebonnier.cvplayerone.ui.tools.modifyIf
 import com.gregoirebonnier.cvplayerone.ui.tools.noRippleClickable
@@ -157,7 +157,7 @@ class ProfileScreen(
             state = state,
             scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
             toolbar = {
-                val textSize = (16 + (30 - 18) * state.toolbarState.progress).sp
+                val textSize = (20 + (30 - 18) * state.toolbarState.progress).sp
 
                 Column(modifier = Modifier
                     .background(MaterialTheme.colors.primary)
@@ -185,7 +185,7 @@ class ProfileScreen(
                         .road(Alignment.TopStart, Alignment.BottomCenter)
                         .padding(16.dp),
                     color = MaterialTheme.colors.onPrimary,
-                    fontSize = textSize
+                    fontSize = textSize,
                 )
 
                 Image(
@@ -226,7 +226,10 @@ class ProfileScreen(
                         )
                     }
                     item {
-                        LazyRow(modifier = Modifier.fillMaxWidth()) {
+                        LazyRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             val skills = listOf(
                                 "Kotlin",
                                 "Compose",
@@ -236,44 +239,28 @@ class ProfileScreen(
                                 "Koin",
                                 "Agile",
                                 "Git",
-                                ""
                             )
                             itemsIndexed(skills) { index, skill ->
-                                Card(
-                                    modifier = Modifier
-                                        .widthIn(min = 100.dp)
-                                        .heightIn(min = 50.dp, max = 50.dp)
-                                        .wrapContentHeight(Alignment.CenterVertically)
-                                        .padding(
-                                            start = if (index == 0) 24.dp else 0.dp,
-                                            end = if (index == skills.lastIndex) 24.dp else 12.dp,
-                                        ),
-                                    backgroundColor = MaterialTheme.colors.surface,
-                                    elevation = 8.dp,
-                                    shape = RoundedCornerShape(8.dp)
+                                Box(modifier = Modifier
+                                    .padding(
+                                        start = if (index == 0) 24.dp else 6.dp,
+                                        end = if (index == skills.lastIndex) 24.dp else 0.dp,
+                                    )
                                 ) {
-                                    if (index == skills.lastIndex) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.ic_three_dots_24),
-                                            contentDescription = "last item",
-                                            colorFilter = ColorFilter.tint(Color.LightGray),
-                                            modifier = Modifier
-                                                .padding(16.dp)
-                                                .noRippleClickable {
-                                                    navController.navigate(NavigationItem.Skills.route)
-                                                },
-                                        )
-                                    } else {
-                                        Text(
-                                            text = skill,
-                                            color = MaterialTheme.colors.onSurface,
-                                            fontSize = 12.sp,
-                                            fontWeight = FontWeight.Bold,
-                                            modifier = Modifier.padding(16.dp),
-                                            textAlign = TextAlign.Center
-                                        )
-                                    }
+                                    ChipSkill(text = skill)
                                 }
+                            }
+                            item {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_three_dots_24),
+                                    contentDescription = "last item",
+                                    colorFilter = ColorFilter.tint(Color.LightGray),
+                                    modifier = Modifier
+                                        .padding(end = 24.dp)
+                                        .noRippleClickable {
+                                            navController.navigate(NavigationItem.Skills.route)
+                                        },
+                                )
                             }
                         }
                     }
