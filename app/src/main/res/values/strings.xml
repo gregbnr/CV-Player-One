@@ -3,6 +3,7 @@
     <string name="navigationItem_title_profile">Profile</string>
     <string name="navigationItem_title_experiences">Xp</string>
     <string name="navigationItem_title_skills">Skills</string>
+    <string name="navigationItem_title_about">About</string>
     <string name="profileScreen_informationItem_title_developer">Android Developer</string>
     <string name="profileScreen_informationItem_title_linkedin">My LinkedIn</string>
     <string name="profileScreen_informationItem_title_age">%1$d years</string>

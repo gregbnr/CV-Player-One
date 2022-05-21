@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.gregoirebonnier.cvplayerone.ui.AboutScreen
 import com.gregoirebonnier.cvplayerone.ui.NavigationItem
 import com.gregoirebonnier.cvplayerone.ui.SkillScreen
 import com.gregoirebonnier.cvplayerone.ui.experience.ExperienceScreen
@@ -98,7 +99,8 @@ class MainActivity : ComponentActivity() {
         val items = listOf(
             NavigationItem.Profile,
             NavigationItem.Experiences,
-            NavigationItem.Skills
+            NavigationItem.Skills,
+            NavigationItem.About,
         )
         BottomNavigation(
             backgroundColor = MaterialTheme.colors.surface,
@@ -149,16 +151,10 @@ class MainActivity : ComponentActivity() {
             composable(NavigationItem.Skills.route) {
                 SkillScreen().MainScreen()
             }
+            composable(NavigationItem.About.route) {
+                AboutScreen().MainScreen()
+            }
         }
     }
 
 }
-
-
-//@Preview(showBackground = true, uiMode = UI_MODE_TYPE_NORMAL)
-//@Composable
-//private fun DefaultPreview() {
-//    CVPlayerOneTheme(true) {
-//        MainScreen()
-//    }
-//}

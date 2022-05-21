@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import com.gregoirebonnier.cvplayerone.R
 import com.gregoirebonnier.cvplayerone.domain.model.CompanyModel
-import com.gregoirebonnier.cvplayerone.ui.tools.ExpandableCard
+import com.gregoirebonnier.cvplayerone.ui.tools.ExpandableCardExperience
 
 class ExperienceScreen() {
 
@@ -40,32 +40,29 @@ class ExperienceScreen() {
                         .background(MaterialTheme.colors.surface)
                 ) {
                     item {
-                        ExpandableCard(
+                        ExpandableCardExperience(
                             header = companyOptimetriks.name,
                             subtitle = companyOptimetriks.role,
                             date = companyOptimetriks.period,
                             description = companyOptimetriks.missionList,
                             skills = companyOptimetriks.skillsList,
                             imageRes = companyOptimetriks.imageRes,
-                            isHorizontalChips = true,
                         )
-                        ExpandableCard(
+                        ExpandableCardExperience(
                             header = companyWonderstudios2.name,
                             subtitle = companyWonderstudios2.role,
                             date = companyWonderstudios2.period,
                             description = companyWonderstudios2.missionList,
                             skills = companyWonderstudios2.skillsList,
                             imageRes = companyWonderstudios2.imageRes,
-                            isHorizontalChips = true,
                         )
-                        ExpandableCard(
+                        ExpandableCardExperience(
                             header = companyWonderstudios1.name,
                             subtitle = companyWonderstudios1.role,
                             date = companyWonderstudios1.period,
                             description = companyWonderstudios1.missionList,
                             skills = companyWonderstudios1.skillsList,
                             imageRes = companyWonderstudios1.imageRes,
-                            isHorizontalChips = true,
                         )
                     }
 

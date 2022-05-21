@@ -11,7 +11,8 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import com.gregoirebonnier.cvplayerone.ui.tools.ExpandableCard
+import com.gregoirebonnier.cvplayerone.R
+import com.gregoirebonnier.cvplayerone.ui.tools.ExpandableCardSkill
 
 class SkillScreen() {
 
@@ -38,30 +39,30 @@ class SkillScreen() {
                         .background(MaterialTheme.colors.surface)
                 ) {
                     item {
-                        ExpandableCard(
+                        ExpandableCardSkill(
                             header = "Android",
                             skills = androidSkills,
-                            isHorizontalChips = false,
+                            imageRes = R.drawable.ic_baseline_android_24,
                         )
-                        ExpandableCard(
+                        ExpandableCardSkill(
                             header = "Code Architecture",
                             skills = architectureSkills,
-                            isHorizontalChips = false,
+                            imageRes = R.drawable.ic_baseline_cleaning_services_24,
                         )
-                        ExpandableCard(
+                        ExpandableCardSkill(
                             header = "Management",
                             skills = managementSkills,
-                            isHorizontalChips = false,
+                            imageRes = R.drawable.ic_baseline_manage_accounts_24,
                         )
-                        ExpandableCard(
+                        ExpandableCardSkill(
                             header = "Web",
                             skills = webSkills,
-                            isHorizontalChips = false,
+                            imageRes = R.drawable.ic_baseline_computer_24,
                         )
-                        ExpandableCard(
+                        ExpandableCardSkill(
                             header = "Knowledge",
                             skills = knowledgeSkills,
-                            isHorizontalChips = false,
+                            imageRes = R.drawable.ic_baseline_lightbulb_24,
                         )
                     }
                 }
