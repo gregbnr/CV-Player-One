@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
-import android.media.MediaPlayer
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -16,12 +15,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -30,7 +26,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -89,6 +84,7 @@ class ProfileScreen(
             when (effect) {
                 ProfileContract.Effect.OnUserSendEmail -> sendEmail()
                 ProfileContract.Effect.OnUserOpenLinkedIn -> openLinkedIn()
+                ProfileContract.Effect.OnUserOpenGithub -> openGithub()
             }
         }
     }
@@ -137,6 +133,20 @@ class ProfileScreen(
         }
     }
 
+    /**
+     *
+     */
+    private fun openGithub() {
+        try {
+            val url = "https://github.com/gregbnr/CV-Player-One"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            activity.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(activity.applicationContext, e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     @Composable
     fun MainScreen() {
@@ -146,9 +156,6 @@ class ProfileScreen(
         initObservers()
 
         val state = rememberCollapsingToolbarScaffoldState()
-
-        val firstMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_smalltown_boy)
-        val secondMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_my_life_be_like)
 
         CollapsingToolbarScaffold(
             modifier = Modifier
@@ -233,11 +240,10 @@ class ProfileScreen(
                             val skills = listOf(
                                 "Kotlin",
                                 "Compose",
-                                "MVVM/MVI",
-                                "Room",
-                                "Retrofit",
+                                "MVI",
+                                "Clean Architecture",
+                                "Datastore",
                                 "Koin",
-                                "Agile",
                                 "Git",
                             )
                             itemsIndexed(skills) { index, skill ->
@@ -272,6 +278,11 @@ class ProfileScreen(
                                 action = {},
                             )
                             InformationItem(
+                                text = stringResource(R.string.profileScreen_informationItem_title_app),
+                                icon = R.drawable.ic_baseline_create_24,
+                                action = {},
+                            )
+                            InformationItem(
                                 text = "Paris",
                                 icon = R.drawable.ic_baseline_place_24,
                                 action = {},
@@ -294,20 +305,18 @@ class ProfileScreen(
                                 text = stringResource(R.string.profileScreen_informationItem_title_linkedin),
                                 icon = R.drawable.ic_linkedin_fill_24,
                                 action = { viewModel.setEvent(ProfileContract.Event.OnUserClickOnLinkedIn) },
+                                hasLink = true
+                            )
+                            InformationItem(
+                                text = stringResource(R.string.profileScreen_informationItem_title_github),
+                                icon = R.drawable.ic_github_24,
+                                action = { viewModel.setEvent(ProfileContract.Event.OnUserClickOnGithub) },
                                 hasLink = true,
                                 isLastItem = true
                             )
 
                         }
                     }
-                    item {
-                        Column(modifier = Modifier.padding(horizontal = 24.dp)) {
-                            CardMusicPlayer("Smalltown Boy - Bronsky Beat", firstMediaPlayer)
-                            CardMusicPlayer("My Life Be Like - Grits", secondMediaPlayer)
-
-                        }
-                    }
-
                 }
                 val colors = listOf(MaterialTheme.colors.surface, Color.Transparent)
                 Box(
@@ -369,170 +378,4 @@ class ProfileScreen(
 
         }
     }
-
-    /**
-     *
-     *
-    @Composable
-    fun MainScreen() {
-    val scrollState = rememberLazyListState()
-    val boxHeight = remember { mutableStateOf(0f) }
-    val toolbarHeight = 240.dp
-    val toolbarHeightPx = with(LocalDensity.current) { toolbarHeight.roundToPx().toFloat() }
-    val toolbarOffsetHeightPx = remember { mutableStateOf(0f) }
-    val nestedScrollConnection = remember {
-    object : NestedScrollConnection {
-    override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-    val delta = available.y
-    val newOffset = toolbarOffsetHeightPx.value + delta
-    toolbarOffsetHeightPx.value = newOffset.coerceIn(-toolbarHeightPx, 0f)
-    boxHeight.value = newOffset.coerceIn(-toolbarHeightPx, 0f)
-    return Offset.Zero
-    }
-    }
-    }
-    Column(
-    Modifier
-    .fillMaxSize()
-    .background(MaterialTheme.colors.primary)
-    .nestedScroll(nestedScrollConnection)
-    ) {
-    Image(
-    painter = painterResource(id = R.drawable.ic_baseline_person_24),
-    contentDescription = null,
-    contentScale = ContentScale.FillWidth,
-    modifier = Modifier
-    .height(toolbarHeight)
-    .fillMaxWidth()
-    .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.value.roundToInt()) },
-    )
-    Text(
-    text = "Grégoire Bonnier",
-    modifier = Modifier
-    .offset {
-    val limit = 0
-    IntOffset(
-    x = 0,
-    y = if (toolbarOffsetHeightPx.value.roundToInt() == limit) limit
-    else toolbarOffsetHeightPx.value.roundToInt()
-    )
-    },
-    )
-    LazyColumn(
-    modifier = Modifier
-    .fillMaxWidth()
-    .fillMaxHeight()
-    .heightIn(
-    min = LocalConfiguration.current.screenHeightDp.dp + -boxHeight.value.dp,
-    max = LocalConfiguration.current.screenHeightDp.dp
-    )
-    .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.value.roundToInt()) }
-    .background(
-    MaterialTheme.colors.surface,
-    RoundedCornerShape(topStart = 14.dp, topEnd = 14.dp)
-    ),
-    ) {
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    item {
-    Text(text = "Content", modifier = Modifier.padding(20.dp))
-    }
-    }
-
-    }
-
-    }
-     */
-
-
-    /**
-     * Music to display in info
-     *
-     */
-
-
-    @Composable
-    private fun CardMusicPlayer(titleMusic: String, mediaPlayer: MediaPlayer) {
-        val isPlaying = remember { mutableStateOf(false) }
-        Card(
-            modifier = Modifier
-                .padding(vertical = 15.dp)
-                .fillMaxWidth(),
-            elevation = 8.dp,
-            backgroundColor = MaterialTheme.colors.surface,
-            shape = RoundedCornerShape(8.dp)
-        ) {
-            Row(
-                modifier = Modifier.padding(15.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(
-                        if (isPlaying.value) R.drawable.ic_baseline_pause_circle_outline_24
-                        else R.drawable.ic_baseline_play_circle_outline_24
-                    ),
-                    contentDescription = "play",
-                    colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
-                    modifier = Modifier
-                        .size(30.dp)
-                        .noRippleClickable {
-                            if (isPlaying.value) {
-                                mediaPlayer.pause()
-                                isPlaying.value = false
-                            } else {
-                                mediaPlayer.start()
-                                isPlaying.value = true
-                            }
-                        }
-                )
-                Text(text = titleMusic,
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    maxLines = 1,
-                    color = MaterialTheme.colors.onSurface)
-            }
-
-        }
-    }
-
-
 }

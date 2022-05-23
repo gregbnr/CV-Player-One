@@ -6,6 +6,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 fun viewModelModule() = module {
-    viewModel { MainViewModel(get(), get(), get()) }
-    viewModel { ProfileViewModel(get(), get(), get()) }
+    viewModel { MainViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get(), get()) }
 }

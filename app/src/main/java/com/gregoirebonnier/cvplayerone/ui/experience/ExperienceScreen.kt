@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import com.gregoirebonnier.cvplayerone.R
 import com.gregoirebonnier.cvplayerone.domain.model.CompanyModel
@@ -20,6 +21,83 @@ class ExperienceScreen() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     @Composable
     fun MainScreen() {
+
+        val companyOptimetriks = CompanyModel(
+            name = "Optimetriks",
+            role = stringResource(id = R.string.profileScreen_informationItem_title_developer),
+            period = "2020-2022",
+            missionList = listOf(
+                stringResource(R.string.experienceScreen_company_mission_modularisation),
+                stringResource(R.string.experienceScreen_company_mission_quality),
+                stringResource(R.string.experienceScreen_company_mission_facilitating),
+                stringResource(R.string.experienceScreen_company_mission_design),
+                stringResource(R.string.experienceScreen_company_mission_specification),
+            ),
+            skillsList = listOf(
+                "Kotlin",
+                "Java",
+                "Couroutines Flow",
+                "MVVM",
+                "MVI",
+                "Clean Architecture",
+                "Jetpack Compose",
+                "Databinding",
+                "Espresso",
+                "Mockk",
+                "Kakao",
+                "Room",
+                "Retrofit",
+                "Koin Injection",
+                "Koin Test",
+                "Git",
+                stringResource(id = R.string.skillScreen_skill_agility),
+                "Jira",
+            ),
+            imageRes = R.drawable.fieldpro,
+        )
+
+        val companyWonderstudios2 = CompanyModel(
+            name = "Wonderstudios",
+            role = stringResource(R.string.experienceScreen_company_role_manager),
+            period = "2019-2020",
+            missionList = listOf(
+                stringResource(R.string.experienceScreen_company_mission_relation),
+                stringResource(R.string.experienceScreen_company_mission_consulting),
+                stringResource(R.string.experienceScreen_company_mission_web),
+                stringResource(R.string.experienceScreen_company_mission_monotoring),
+            ),
+            skillsList = listOf(
+                stringResource(id = R.string.skillScreen_skill_team),
+                "Planning",
+                stringResource(id = R.string.skillScreen_skill_quotation),
+                stringResource(id = R.string.skillScreen_skill_invoicing),
+                stringResource(id = R.string.skillScreen_skill_acceptance),
+                stringResource(id = R.string.skillScreen_skill_retroplanning),
+            ),
+            imageRes = R.drawable.wonderstudios,
+        )
+
+        val companyWonderstudios1 = CompanyModel(
+            name = "Wonderstudios",
+            role = stringResource(R.string.experienceScreen_company_role_web),
+            period = "2018-2019",
+            missionList = listOf(
+                stringResource(R.string.experienceScreen_company_mission_ad),
+                stringResource(R.string.experienceScreen_company_mission_graphic),
+                stringResource(R.string.experienceScreen_company_mission_training),
+            ),
+            skillsList = listOf(
+                "HTML",
+                "CSS",
+                "JS",
+                "Photoshop",
+                "Illustrator",
+                stringResource(R.string.experienceScreen_company_skill_manager),
+            ),
+            imageRes = R.drawable.wonderstudios,
+        )
+
+
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -71,80 +149,4 @@ class ExperienceScreen() {
         )
 
     }
-
-
-    private val companyOptimetriks = CompanyModel(
-        name = "Optimetriks",
-        role = "Android Developer",
-        period = "2020-2022",
-        missionList = listOf(
-            "Contributing to the modularisation of the Android application",
-            "Improving application quality",
-            "Facilitating meetings in accordance with SrumBan agility",
-            "Participating in the design phase",
-            "Writing the technical specifications",
-        ),
-        skillsList = listOf(
-            "Kotlin",
-            "Java",
-            "Couroutines Flow",
-            "MVVM",
-            "MVI",
-            "Clean Architecture",
-            "Jetpack Compose",
-            "Databinding",
-            "Espresso",
-            "Mockk",
-            "Kakao",
-            "Room",
-            "Retrofit",
-            "Koin Injection",
-            "Koin Test",
-            "Git",
-            "Agility Management",
-            "Jira",
-        ),
-        imageRes = R.drawable.fieldpro,
-    )
-
-    private val companyWonderstudios2 = CompanyModel(
-        name = "Wonderstudios",
-        role = "Account Manager",
-        period = "2019-2020",
-        missionList = listOf(
-            "Negotiation and customer relations",
-            "UX & UI design consulting",
-            "Creation & production of web content (website, social media, display, videos)",
-            "Monitoring, reporting and strategic recommendations",
-        ),
-        skillsList = listOf(
-            "Team management",
-            "Planning",
-            "Quotation",
-            "Invoicing",
-            "Acceptance, support call for tender",
-            "Retroplanning of projects"
-        ),
-        imageRes = R.drawable.wonderstudios,
-    )
-
-    private val companyWonderstudios1 = CompanyModel(
-        name = "Wonderstudios",
-        role = "Web Developer",
-        period = "2018-2019",
-        missionList = listOf(
-            "Development of advertising banners for the web",
-            "Graphic design (creation of static images and website skins)",
-            "Training as a Digital Project Manager",
-        ),
-        skillsList = listOf(
-            "HTML",
-            "CSS",
-            "JS",
-            "Photoshop",
-            "Illustrator",
-            "Account Manager training",
-        ),
-        imageRes = R.drawable.wonderstudios,
-    )
 }

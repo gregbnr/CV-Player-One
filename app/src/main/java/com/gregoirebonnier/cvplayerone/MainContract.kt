@@ -8,7 +8,7 @@ import com.gregoirebonnier.cvplayerone.application.base.UiState
 class MainContract {
 
     sealed class Effect : UiEffect {
-        data class UpdateDarkMode(val isDarkModeActivated: Boolean) : Effect()
+
     }
 
     sealed class Event : UiEvent {

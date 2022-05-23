@@ -1,6 +1,5 @@
 package com.gregoirebonnier.cvplayerone
 
-import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.gregoirebonnier.cvplayerone.application.base.BaseViewModel
 import com.gregoirebonnier.cvplayerone.domain.app.ObserveIsDarkModeActivatedUseCase
@@ -10,10 +9,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(
-    application: Application,
     private val updateDarkModeUseCase: UpdateDarkModeUseCase,
     private val observeIsDarkModeActivatedUseCase: ObserveIsDarkModeActivatedUseCase,
-) : BaseViewModel<MainContract.Event, MainContract.State, MainContract.Effect>(application) {
+) : BaseViewModel<MainContract.Event, MainContract.State, MainContract.Effect>() {
 
     override fun createInitialState(): MainContract.State {
         return MainContract.State(

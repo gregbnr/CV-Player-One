@@ -10,12 +10,14 @@ class ProfileContract {
     sealed class Effect : UiEffect {
         object OnUserSendEmail : Effect()
         object OnUserOpenLinkedIn : Effect()
+        object OnUserOpenGithub : Effect()
     }
 
     sealed class Event : UiEvent {
         object OnUserUpdateDarkMode : Event()
         object OnUserClickOnEmail : Event()
         object OnUserClickOnLinkedIn : Event()
+        object OnUserClickOnGithub : Event()
     }
 
     data class State(

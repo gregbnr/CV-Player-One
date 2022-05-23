@@ -15,7 +15,7 @@ sealed class NavigationItem(var route: String, var icon: Int, var title: Int) {
         R.drawable.ic_baseline_checklist_rtl_24,
         R.string.navigationItem_title_skills)
 
-    object About : NavigationItem("about",
-        R.drawable.ic_baseline_info_24,
-        R.string.navigationItem_title_about)
+    object Bonus : NavigationItem("bonus",
+        R.drawable.ic_baseline_question_mark_24,
+        R.string.navigationItem_title_bonus)
 }

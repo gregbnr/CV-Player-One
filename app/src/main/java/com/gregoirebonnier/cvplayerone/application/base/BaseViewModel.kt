@@ -1,14 +1,13 @@
 package com.gregoirebonnier.cvplayerone.application.base
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<Event : UiEvent, State : UiState, Effect : UiEffect>(application: Application) :
-    AndroidViewModel(application) {
+abstract class BaseViewModel<Event : UiEvent, State : UiState, Effect : UiEffect>() :
+    ViewModel() {
 
     private val initialState: State by lazy { createInitialState() }
     abstract fun createInitialState(): State

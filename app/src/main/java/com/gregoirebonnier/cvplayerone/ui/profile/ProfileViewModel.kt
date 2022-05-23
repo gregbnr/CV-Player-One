@@ -1,6 +1,5 @@
 package com.gregoirebonnier.cvplayerone.ui.profile
 
-import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.gregoirebonnier.cvplayerone.application.base.BaseViewModel
 import com.gregoirebonnier.cvplayerone.domain.app.ObserveIsDarkModeActivatedUseCase
@@ -10,10 +9,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ProfileViewModel(
-    application: Application,
     private val updateDarkModeUseCase: UpdateDarkModeUseCase,
     private val observeIsDarkModeActivatedUseCase: ObserveIsDarkModeActivatedUseCase,
-) : BaseViewModel<ProfileContract.Event, ProfileContract.State, ProfileContract.Effect>(application) {
+) : BaseViewModel<ProfileContract.Event, ProfileContract.State, ProfileContract.Effect>() {
 
     override fun createInitialState(): ProfileContract.State {
         return ProfileContract.State(
@@ -26,6 +24,7 @@ class ProfileViewModel(
             ProfileContract.Event.OnUserUpdateDarkMode -> updateDarkMode(!currentState.isDarkMode)
             ProfileContract.Event.OnUserClickOnEmail -> setEffect { ProfileContract.Effect.OnUserSendEmail }
             ProfileContract.Event.OnUserClickOnLinkedIn -> setEffect { ProfileContract.Effect.OnUserOpenLinkedIn }
+            ProfileContract.Event.OnUserClickOnGithub -> setEffect { ProfileContract.Effect.OnUserOpenGithub }
         }
     }
 
