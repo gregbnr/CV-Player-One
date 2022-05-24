@@ -2,7 +2,7 @@
     <string name="app_name">CV Player One</string>
     <string name="navigationItem_title_profile">Profil</string>
     <string name="navigationItem_title_experiences">Xp</string>
-    <string name="navigationItem_title_skills">Compétences</string>
+    <string name="navigationItem_title_skills">Skill</string>
     <string name="navigationItem_title_bonus">Bonus</string>
     <string name="profileScreen_informationItem_title_developer">Développeur Android</string>
     <string name="profileScreen_informationItem_title_app">Application en full compose </string>
@@ -23,7 +23,7 @@
     <string name="skillScreen_skill_team">Management d\'équipe</string>
     <string name="skillScreen_skill_quotation">Devis</string>
     <string name="skillScreen_skill_invoicing">Facturation</string>
-    <string name="skillScreen_skill_acceptance">Recettage, accompagnement sur des appels d’offre,</string>
+    <string name="skillScreen_skill_acceptance">Recettage</string>
     <string name="skillScreen_skill_retroplanning">Retroplanning de projet</string>
     <string name="experienceScreen_company_mission_modularisation">Contribuer à la modularisation de l\'application Android</string>
     <string name="experienceScreen_company_mission_quality">Améliorer la qualité application</string>
@@ -37,7 +37,7 @@
     <string name="experienceScreen_company_mission_monotoring">Suivi, rapports et recommandations stratégiques</string>
     <string name="experienceScreen_company_role_web">Développeur Web</string>
     <string name="experienceScreen_company_mission_ad">Développement de bannières publicitaires pour le web</string>
-    <string name="experienceScreen_company_mission_graphic">Graphic design (création d\'images statiques et d'habillages de sites web)</string>
+    <string name="experienceScreen_company_mission_graphic">Graphic design (création images statiques et habillages de sites web)</string>
     <string name="experienceScreen_company_mission_training">Formation de chef de projet</string>
     <string name="experienceScreen_company_skill_manager">Chef de projet</string>
 </resources>
