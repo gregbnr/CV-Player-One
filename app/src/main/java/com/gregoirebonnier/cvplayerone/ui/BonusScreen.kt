@@ -35,11 +35,21 @@ class BonusScreen() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     @Composable
     fun MainScreen() {
+
         val firstMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_smalltown_boy)
         val secondMediaPlayer = MediaPlayer.create(LocalContext.current, R.raw.raw_my_life_be_like)
 
         val isFirstMediaPlaying = remember { mutableStateOf(false) }
         val isSecondMediaPlaying = remember { mutableStateOf(false) }
+
+
+        DisposableEffect(LocalContext.current) {
+            onDispose {
+                firstMediaPlayer.stop()
+                secondMediaPlayer.stop()
+            }
+        }
+
 
         Scaffold(
             topBar = {
