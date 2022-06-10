@@ -175,7 +175,7 @@ class ProfileScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.profile_picture),
+                        painter = painterResource(R.drawable.pp),
                         contentDescription = "avatar",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
