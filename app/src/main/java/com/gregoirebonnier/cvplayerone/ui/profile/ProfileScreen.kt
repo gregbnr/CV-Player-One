@@ -2,8 +2,6 @@ package com.gregoirebonnier.cvplayerone.ui.profile
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -118,15 +116,9 @@ class ProfileScreen(
      */
     private fun openLinkedIn() {
         try {
-            val linkedId = "gregoire-bonnier"
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://add/%@$linkedId"))
-            val packageManager = activity.applicationContext.packageManager
-            val list: List<ResolveInfo> =
-                packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-            if (list.isEmpty()) {
-                intent = Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://www.linkedin.com/profile/view?id=$linkedId"))
-            }
+            val intent =
+                Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.linkedin.com/in/gregoire-bonnier/"))
             activity.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(activity.applicationContext, e.message, Toast.LENGTH_SHORT).show()
