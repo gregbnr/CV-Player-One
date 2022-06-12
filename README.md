@@ -12,3 +12,4 @@ Technologies used :
 - Clean Architecture
 - Data Store
 - Koin Injection
+- Media Player
