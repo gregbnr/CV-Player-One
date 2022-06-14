@@ -32,6 +32,7 @@ class ExperienceScreen() {
                 stringResource(R.string.experienceScreen_company_mission_facilitating),
                 stringResource(R.string.experienceScreen_company_mission_design),
                 stringResource(R.string.experienceScreen_company_mission_specification),
+                stringResource(R.string.experienceScreen_company_mission_test),
             ),
             skillsList = listOf(
                 "Kotlin",

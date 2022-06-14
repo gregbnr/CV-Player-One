@@ -30,6 +30,7 @@
     <string name="experienceScreen_company_mission_facilitating">Animer des réunions en accord avec l\'agilité SrumBan.</string>
     <string name="experienceScreen_company_mission_design">Participer à la phase de réflexion design</string>
     <string name="experienceScreen_company_mission_specification">Écrire de la documentation technique</string>
+    <string name="experienceScreen_company_mission_test">Rédiger des tests unitaires et automatisés</string>
     <string name="experienceScreen_company_role_manager">Chef de projet</string>
     <string name="experienceScreen_company_mission_relation">Négociation et relation client</string>
     <string name="experienceScreen_company_mission_consulting"><![CDATA[Conseil UX & UI design]]></string>

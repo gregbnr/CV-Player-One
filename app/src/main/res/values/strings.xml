@@ -30,6 +30,7 @@
     <string name="experienceScreen_company_mission_facilitating">Facilitating meetings in accordance with SrumBan agility</string>
     <string name="experienceScreen_company_mission_design">Participating in the design phase</string>
     <string name="experienceScreen_company_mission_specification">Writing the technical specifications</string>
+    <string name="experienceScreen_company_mission_test">Writing unit and automated tests</string>
     <string name="experienceScreen_company_role_manager">Account Manager</string>
     <string name="experienceScreen_company_mission_relation">Negotiation and customer relations</string>
     <string name="experienceScreen_company_mission_consulting"><![CDATA[UX & UI design consulting]]></string>
