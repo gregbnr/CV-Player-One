@@ -100,7 +100,8 @@ class ProfileScreen(
      */
     private fun sendEmail() {
         try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "gmfbonnier@gmail.com"))
+            val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "gmfbonnier.pro@gmail.com"))
             intent.putExtra(Intent.EXTRA_SUBJECT,
                 activity.getString(R.string.profileScreen_intent_mail_subject))
             intent.putExtra(Intent.EXTRA_TEXT,
@@ -288,7 +289,7 @@ class ProfileScreen(
                                 action = {},
                             )
                             InformationItem(
-                                text = "gmfbonnier@gmail.com",
+                                text = "gmfbonnier.pro@gmail.com",
                                 icon = R.drawable.ic_baseline_alternate_email_24,
                                 action = { viewModel.setEvent(ProfileContract.Event.OnUserClickOnEmail) },
                                 hasLink = true
